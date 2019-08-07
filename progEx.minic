@@ -1,0 +1,14 @@
+programa
+	var x01, x02, a, b, c;
+	leia(x01);
+	leia(x02);
+	leia(a);
+	c = 3;
+	b = a + c * c;
+	se (a == 2) {
+		escreva("a eh igual a 2");
+	} senao {
+		c = 1;
+		escreva("a diferente de 2");
+	}
+fimPrograma;
