@@ -11,4 +11,4 @@ programa
 		c = 1;
 		escreva("a diferente de 2");
 	}
-fimPrograma;
+fimPrograma

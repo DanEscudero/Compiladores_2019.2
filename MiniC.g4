@@ -1,6 +1,6 @@
 grammar MiniC;
 
-prog: T_INIT declara bloco T_END T_FINAL;
+prog: T_INIT declara bloco T_END;
 
 declara: T_DECLARE T_ID (T_COMMA T_ID)* T_FINAL;
 
