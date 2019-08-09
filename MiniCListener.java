@@ -17,25 +17,25 @@ public interface MiniCListener extends ParseTreeListener {
 	 */
 	void exitProg(MiniCParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniCParser#declara}.
+	 * Enter a parse tree produced by {@link MiniCParser#declare}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclara(MiniCParser.DeclaraContext ctx);
+	void enterDeclare(MiniCParser.DeclareContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MiniCParser#declara}.
+	 * Exit a parse tree produced by {@link MiniCParser#declare}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclara(MiniCParser.DeclaraContext ctx);
+	void exitDeclare(MiniCParser.DeclareContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniCParser#bloco}.
+	 * Enter a parse tree produced by {@link MiniCParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void enterBloco(MiniCParser.BlocoContext ctx);
+	void enterBlock(MiniCParser.BlockContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MiniCParser#bloco}.
+	 * Exit a parse tree produced by {@link MiniCParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void exitBloco(MiniCParser.BlocoContext ctx);
+	void exitBlock(MiniCParser.BlockContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiniCParser#cmd}.
 	 * @param ctx the parse tree

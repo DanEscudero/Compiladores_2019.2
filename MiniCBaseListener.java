@@ -27,25 +27,25 @@ public class MiniCBaseListener implements MiniCListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclara(MiniCParser.DeclaraContext ctx) { }
+	@Override public void enterDeclare(MiniCParser.DeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclara(MiniCParser.DeclaraContext ctx) { }
+	@Override public void exitDeclare(MiniCParser.DeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBloco(MiniCParser.BlocoContext ctx) { }
+	@Override public void enterBlock(MiniCParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBloco(MiniCParser.BlocoContext ctx) { }
+	@Override public void exitBlock(MiniCParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

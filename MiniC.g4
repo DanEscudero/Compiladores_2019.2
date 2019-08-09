@@ -1,10 +1,10 @@
 grammar MiniC;
 
-prog: T_INIT declara bloco T_END;
+prog: T_INIT declare+ block T_END;
 
-declara: T_DECLARE T_ID (T_COMMA T_ID)* T_FINAL;
+declare: (T_INT | T_FLOAT) T_ID (T_COMMA T_ID)* T_FINAL;
 
-bloco: (cmd)+;
+block: (cmd)+;
 
 cmd: (cmdRead | cmdWrite | cmdAssign | cmdCondition);
 
@@ -22,9 +22,9 @@ condition: expression T_OPERATORS expression;
 
 cmdAssign: T_ID T_ASSIGN expression T_FINAL;
 
-expression: term ((T_SUM | T_SUB) term)*;
+expression: term (T_ARITH_1 term)*;
 
-term: factor ((T_MUL | T_DIV) factor)*;
+term: factor (T_ARITH_2 factor)*;
 
 factor: T_NUM | T_ID | (T_LP expression T_RP);
 
@@ -39,6 +39,8 @@ T_WRITE: 'escreva';
 T_IF: 'se';
 T_THEN: 'entao';
 T_ELSE: 'senao';
+T_INT: 'int';
+T_FLOAT: 'float';
 
 T_OPERATORS:
 	'<'
@@ -49,15 +51,14 @@ T_OPERATORS:
 	| '=='
 	| '||'
 	| '&&';
-T_SUM: '+';
-T_SUB: '-';
-T_MUL: '*';
-T_DIV: '/';
+
+T_ARITH_1: '+' | '-';
+T_ARITH_2: '*' | '/';
 
 T_ID: [a-zA-Z] [a-zA-Z0-9]*;
 T_LETTER: [a-zA-Z];
 
-T_NUM: ('-')? [0-9]+;
+T_NUM: ('-')? [0-9]+ ('.' [0-9]+)?;
 
 // Regra de https://stackoverflow.com/questions/27915012/antlr4-ignore-white-spaces-in-the-input-but-not-those-in-string-literals
 STRING: '"' ('\\' [\\"] | ~[\\"\r\n])* '"';
@@ -70,3 +71,4 @@ T_LP: '(';
 T_RP: ')';
 T_COMMA: ',';
 T_QUOTE: '"';
+T_SQUOTE: '\'';

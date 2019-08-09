@@ -3,6 +3,9 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.management.RuntimeErrorException;
+
 import java.util.HashMap;
 
 import org.antlr.v4.runtime.tree.*;
@@ -11,6 +14,7 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 	List<String> outputLines = new ArrayList<String>();
 
 	Map<String, Integer> integers = new HashMap<String, Integer>();
+	Map<String, Double> floats = new HashMap<String, Double>();
 
 	@Override
 	public void enterProg(MiniCParser.ProgContext ctx) {
@@ -21,9 +25,7 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 
 	@Override
 	public void exitProg(MiniCParser.ProgContext ctx) {
-		outputLines.add("");
-		outputLines.add("return 0;" + System.lineSeparator());
-		outputLines.add("}" + System.lineSeparator());
+		outputLines.add("return 0;" + System.lineSeparator() + "}" + System.lineSeparator());
 
 		try {
 			FileWriter writer = new FileWriter("./output.c");
@@ -32,18 +34,28 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 			}
 			writer.close();
 		} catch (Exception e) {
-			System.out.println("Exception when writing to output file!!");
+			System.out.println("Exception when writing to output file!!" + e);
 		}
 	}
 
 	@Override
-	public void enterDeclara(MiniCParser.DeclaraContext ctx) {
+	public void enterDeclare(MiniCParser.DeclareContext ctx) {
 		List<TerminalNode> declaredVars = ctx.T_ID();
+
+		TerminalNode typeInt = ctx.T_INT();
+		TerminalNode typeFloat = ctx.T_FLOAT();
+
 		for (TerminalNode var : declaredVars) {
 			String varName = var.getText();
-			integers.put(varName, 0); // Initialize all variables with 0
-			outputLines.add("int " + varName + " = 0;" + System.lineSeparator());
+			if (typeInt != null) {
+				integers.put(varName, 0); // Initialize all variables with 0
+			} else if (typeFloat != null) {
+				floats.put(varName, 0d); // Initialize all variables with 0
+			}
+
+			outputLines.add(getVarType(varName) + " " + varName + ";" + System.lineSeparator());
 		}
+
 	}
 
 	@Override
@@ -56,10 +68,7 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 		// Gets variable flag of type for scanf
 		String varFlag = getVarFlag(varName);
 
-		outputLines.add("scanf(" + varFlag + ", &" + varName + ");" + System.lineSeparator());
-
-		// TODO:
-		// if (chars.containsKey(var)) varFlag = "%c";
+		outputLines.add("scanf(\"" + varFlag + "\", &" + varName + ");" + System.lineSeparator());
 	}
 
 	@Override
@@ -69,7 +78,6 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 
 		if (var != null) {
 			String varName = var.toString();
-			System.out.println("varName:" + varName);
 
 			// Checks if variable is declared
 			validateIdentifier(varName, ctx.getStart().getLine());
@@ -77,15 +85,14 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 			// Gets flag for printf
 			String varFlag = getVarFlag(varName);
 
-			outputLines.add("printf(" + varFlag + ", &" + varName + ";" + System.lineSeparator());
+			outputLines.add("printf(\"" + varFlag + "\", " + varName + ");" + System.lineSeparator());
 		} else {
 			outputLines.add("printf(" + string.getText() + ");" + System.lineSeparator());
 		}
 	}
 
 	private void validateIdentifier(String varName, int lineNumber) {
-		if (!integers.containsKey(varName)) {
-			System.out.println(">>> Var not found:" + varName);
+		if (!integers.containsKey(varName) && !floats.containsKey(varName)) {
 			throw new RuntimeException("[Linha " + lineNumber + "] Variavel '" + varName + "' nao foi delcarada.");
 		}
 	}
@@ -93,6 +100,8 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 	private String getVarFlag(String varName) {
 		if (integers.containsKey(varName)) {
 			return "%d";
+		} else if (floats.containsKey(varName)) {
+			return "%lf";
 		} else {
 			return "";
 		}
@@ -104,9 +113,19 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 
 		validateIdentifier(varName, ctx.getStart().getLine());
 
-		MiniCParser.ExpressionContext expressionContext = ctx.expression();
+		MiniCParser.ExpressionContext expression = ctx.expression();
+		outputLines.add(varName + " = " + getExpressionString(expression));
 
-		outputLines.add(varName + " = ");
+	}
+
+	private String getVarType(String varName) {
+		if (integers.containsKey(varName)) {
+			return "int";
+		} else if (floats.containsKey(varName)) {
+			return "double";
+		} else {
+			return "";
+		}
 	}
 
 	@Override
@@ -115,15 +134,50 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 	}
 
 	private String getExpressionString(MiniCParser.ExpressionContext ctx) {
-		// TODO
-		return "";
+		String expressionString = getTermString(ctx.term(0));
+
+		List<TerminalNode> ops = ctx.T_ARITH_1();
+		for (int i = 0; i < ops.size(); i++) {
+			String op = ops.get(i).getText();
+			expressionString += op + getTermString(ctx.term(i + 1));
+		}
+
+		return expressionString;
+	}
+
+	private String getTermString(MiniCParser.TermContext ctx) {
+		String termString = getFactorString(ctx.factor(0));
+
+		List<TerminalNode> ops = ctx.T_ARITH_2();
+		for (int i = 0; i < ops.size(); i++) {
+			String op = ops.get(i).getText();
+			termString += op + getFactorString(ctx.factor(i + 1));
+		}
+
+		return termString;
+
+	}
+
+	private String getFactorString(MiniCParser.FactorContext ctx) {
+		TerminalNode num = ctx.T_NUM();
+		if (num != null)
+			return num.getText();
+
+		TerminalNode var = ctx.T_ID();
+		if (var != null)
+			return var.getText();
+
+		MiniCParser.ExpressionContext expression = ctx.expression();
+		if (expression != null)
+			return "(" + getExpressionString(expression) + ")";
+
+		else
+			return "";
 	}
 
 	private String getConditionString(MiniCParser.ConditionContext ctx) {
-		MiniCParser.ExpressionContext firstExpression = ctx.expression(0);
-		MiniCParser.ExpressionContext secondExpression = ctx.expression(1);
 		String op = ctx.T_OPERATORS().toString();
-		return getExpressionString(ctx.expression(0)) + op + getExpressionString(ctx.expression(0));
+		return getExpressionString(ctx.expression(0)) + op + getExpressionString(ctx.expression(1));
 	}
 
 	@Override

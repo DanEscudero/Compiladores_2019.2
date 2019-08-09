@@ -1,9 +1,15 @@
 programa
-	var x01, x02, a, b, c, d;
+	int x01, x02, a, b, c, d;
+	float f1, f2;
 	leia(x01);
 	leia(x02);
 	leia(a);
-	c = 3;
+	leia(f1);
+	escreva(b);
+	escreva(f1);
+	escreva("1234");
+	f2 = c;
+	f1 = 2.5 + (3.0 / 1.5) * f2;
 	d = -1;
 	b = a + c * c;
 	se (a == 2) {
