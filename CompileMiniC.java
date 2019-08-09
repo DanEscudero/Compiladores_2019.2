@@ -34,9 +34,10 @@ public class CompileMiniC {
 				// Esse processo chama os callbacks do listener, que, por sua vez, compoe o arquivo de output
 				walker.walk(new MiniCTranspilerListener(), tree);
 
-				System.out.println("Compilation Done!");
+				System.out.println("Compilação terminada!");
 			} catch (Exception e) {
-				System.out.println(">>>>" + e);
+				System.out.println("Erro de compilação." + e);
+				// System.out.println(e.getMessage());
 			}
 		}
 	}

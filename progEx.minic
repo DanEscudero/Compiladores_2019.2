@@ -1,9 +1,10 @@
 programa
-	var x01, x02, a, b, c;
+	var x01, x02, a, b, c, d;
 	leia(x01);
 	leia(x02);
 	leia(a);
 	c = 3;
+	d = -1;
 	b = a + c * c;
 	se (a == 2) {
 		escreva("a eh igual a 2");

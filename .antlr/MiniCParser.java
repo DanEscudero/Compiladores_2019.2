@@ -1,4 +1,4 @@
-// Generated from MiniC.g4 by ANTLR 4.7.2
+// Generated from /home/daniel/Área de Trabalho/Compiladores_2019.2/MiniC.g4 by ANTLR 4.7.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class MiniCParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.7.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -24,31 +24,22 @@ public class MiniCParser extends Parser {
 		RULE_prog = 0, RULE_declara = 1, RULE_bloco = 2, RULE_cmd = 3, RULE_cmdRead = 4, 
 		RULE_cmdWrite = 5, RULE_cmdCondition = 6, RULE_cmdAssign = 7, RULE_expression = 8, 
 		RULE_term = 9, RULE_factor = 10;
-	private static String[] makeRuleNames() {
-		return new String[] {
-			"prog", "declara", "bloco", "cmd", "cmdRead", "cmdWrite", "cmdCondition", 
-			"cmdAssign", "expression", "term", "factor"
-		};
-	}
-	public static final String[] ruleNames = makeRuleNames();
+	public static final String[] ruleNames = {
+		"prog", "declara", "bloco", "cmd", "cmdRead", "cmdWrite", "cmdCondition", 
+		"cmdAssign", "expression", "term", "factor"
+	};
 
-	private static String[] makeLiteralNames() {
-		return new String[] {
-			null, null, "'programa'", "'fimPrograma'", "'var'", "'leia'", "'escreva'", 
-			"'se'", "'entao'", "'senao'", null, "'+'", "'-'", "'*'", "'/'", null, 
-			null, null, null, "';'", "'='", "'{'", "'}'", "'('", "')'", "','", "'\"'"
-		};
-	}
-	private static final String[] _LITERAL_NAMES = makeLiteralNames();
-	private static String[] makeSymbolicNames() {
-		return new String[] {
-			null, "T_BLANK", "T_INIT", "T_END", "T_DECLARE", "T_READ", "T_WRITE", 
-			"T_IF", "T_THEN", "T_ELSE", "T_OPERATORS", "T_SUM", "T_SUB", "T_MUL", 
-			"T_DIV", "T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", "T_ASSIGN", 
-			"T_LCB", "T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE"
-		};
-	}
-	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	private static final String[] _LITERAL_NAMES = {
+		null, null, "'programa'", "'fimPrograma'", "'var'", "'leia'", "'escreva'", 
+		"'se'", "'entao'", "'senao'", null, "'+'", "'-'", "'*'", "'/'", null, 
+		null, null, null, "';'", "'='", "'{'", "'}'", "'('", "')'", "','", "'\"'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "T_BLANK", "T_INIT", "T_END", "T_DECLARE", "T_READ", "T_WRITE", 
+		"T_IF", "T_THEN", "T_ELSE", "T_OPERATORS", "T_SUM", "T_SUB", "T_MUL", 
+		"T_DIV", "T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", "T_ASSIGN", 
+		"T_LCB", "T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE"
+	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
@@ -98,7 +89,6 @@ public class MiniCParser extends Parser {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
-
 	public static class ProgContext extends ParserRuleContext {
 		public TerminalNode T_INIT() { return getToken(MiniCParser.T_INIT, 0); }
 		public DeclaraContext declara() {
@@ -112,14 +102,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_prog; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterProg(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitProg(this);
-		}
 	}
 
 	public final ProgContext prog() throws RecognitionException {
@@ -164,14 +146,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_declara; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterDeclara(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitDeclara(this);
-		}
 	}
 
 	public final DeclaraContext declara() throws RecognitionException {
@@ -227,14 +201,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_bloco; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterBloco(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitBloco(this);
-		}
 	}
 
 	public final BlocoContext bloco() throws RecognitionException {
@@ -288,14 +254,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmd; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterCmd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitCmd(this);
-		}
 	}
 
 	public final CmdContext cmd() throws RecognitionException {
@@ -357,14 +315,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdRead; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterCmdRead(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitCmdRead(this);
-		}
 	}
 
 	public final CmdReadContext cmdRead() throws RecognitionException {
@@ -407,14 +357,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdWrite; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterCmdWrite(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitCmdWrite(this);
-		}
 	}
 
 	public final CmdWriteContext cmdWrite() throws RecognitionException {
@@ -485,14 +427,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdCondition; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterCmdCondition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitCmdCondition(this);
-		}
 	}
 
 	public final CmdConditionContext cmdCondition() throws RecognitionException {
@@ -584,14 +518,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdAssign; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterCmdAssign(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitCmdAssign(this);
-		}
 	}
 
 	public final CmdAssignContext cmdAssign() throws RecognitionException {
@@ -640,14 +566,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitExpression(this);
-		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -715,14 +633,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_term; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitTerm(this);
-		}
 	}
 
 	public final TermContext term() throws RecognitionException {
@@ -783,14 +693,6 @@ public class MiniCParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_factor; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterFactor(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitFactor(this);
-		}
 	}
 
 	public final FactorContext factor() throws RecognitionException {

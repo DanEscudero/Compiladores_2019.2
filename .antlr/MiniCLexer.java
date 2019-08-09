@@ -1,4 +1,4 @@
-// Generated from MiniC.g4 by ANTLR 4.7.2
+// Generated from /home/daniel/Área de Trabalho/Compiladores_2019.2/MiniC.g4 by ANTLR 4.7.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class MiniCLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.7.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -28,33 +28,24 @@ public class MiniCLexer extends Lexer {
 		"DEFAULT_MODE"
 	};
 
-	private static String[] makeRuleNames() {
-		return new String[] {
-			"T_BLANK", "T_INIT", "T_END", "T_DECLARE", "T_READ", "T_WRITE", "T_IF", 
-			"T_THEN", "T_ELSE", "T_OPERATORS", "T_SUM", "T_SUB", "T_MUL", "T_DIV", 
-			"T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", "T_ASSIGN", "T_LCB", 
-			"T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE"
-		};
-	}
-	public static final String[] ruleNames = makeRuleNames();
+	public static final String[] ruleNames = {
+		"T_BLANK", "T_INIT", "T_END", "T_DECLARE", "T_READ", "T_WRITE", "T_IF", 
+		"T_THEN", "T_ELSE", "T_OPERATORS", "T_SUM", "T_SUB", "T_MUL", "T_DIV", 
+		"T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", "T_ASSIGN", "T_LCB", 
+		"T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE"
+	};
 
-	private static String[] makeLiteralNames() {
-		return new String[] {
-			null, null, "'programa'", "'fimPrograma'", "'var'", "'leia'", "'escreva'", 
-			"'se'", "'entao'", "'senao'", null, "'+'", "'-'", "'*'", "'/'", null, 
-			null, null, null, "';'", "'='", "'{'", "'}'", "'('", "')'", "','", "'\"'"
-		};
-	}
-	private static final String[] _LITERAL_NAMES = makeLiteralNames();
-	private static String[] makeSymbolicNames() {
-		return new String[] {
-			null, "T_BLANK", "T_INIT", "T_END", "T_DECLARE", "T_READ", "T_WRITE", 
-			"T_IF", "T_THEN", "T_ELSE", "T_OPERATORS", "T_SUM", "T_SUB", "T_MUL", 
-			"T_DIV", "T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", "T_ASSIGN", 
-			"T_LCB", "T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE"
-		};
-	}
-	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	private static final String[] _LITERAL_NAMES = {
+		null, null, "'programa'", "'fimPrograma'", "'var'", "'leia'", "'escreva'", 
+		"'se'", "'entao'", "'senao'", null, "'+'", "'-'", "'*'", "'/'", null, 
+		null, null, null, "';'", "'='", "'{'", "'}'", "'('", "')'", "','", "'\"'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "T_BLANK", "T_INIT", "T_END", "T_DECLARE", "T_READ", "T_WRITE", 
+		"T_IF", "T_THEN", "T_ELSE", "T_OPERATORS", "T_SUM", "T_SUB", "T_MUL", 
+		"T_DIV", "T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", "T_ASSIGN", 
+		"T_LCB", "T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE"
+	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
