@@ -119,18 +119,31 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 		return "";
 	}
 
-	@Override
-	public void enterCondition(MiniCParser.ConditionContext ctx) {
-		outputLines.add("if (");
-	}
-
-	@Override
-	public void exitCondition(MiniCParser.ConditionContext ctx) {
-		outputLines.add(") {" + System.lineSeparator());
-	}
-
 	private String getConditionString(MiniCParser.ConditionContext ctx) {
-		// TODO
-		return "";
+		MiniCParser.ExpressionContext firstExpression = ctx.expression(0);
+		MiniCParser.ExpressionContext secondExpression = ctx.expression(1);
+		String op = ctx.T_OPERATORS().toString();
+		return getExpressionString(ctx.expression(0)) + op + getExpressionString(ctx.expression(0));
+	}
+
+	@Override
+	public void enterIfStmt(MiniCParser.IfStmtContext ctx) {
+		MiniCParser.ConditionContext condition = ctx.condition();
+		outputLines.add("if (" + getConditionString(condition) + ") {" + System.lineSeparator());
+	}
+
+	@Override
+	public void exitIfStmt(MiniCParser.IfStmtContext ctx) {
+		outputLines.add("}" + System.lineSeparator());
+	}
+
+	@Override
+	public void enterElseStmt(MiniCParser.ElseStmtContext ctx) {
+		outputLines.add("else {" + System.lineSeparator());
+	}
+
+	@Override
+	public void exitElseStmt(MiniCParser.ElseStmtContext ctx) {
+		outputLines.add("}" + System.lineSeparator());
 	}
 }

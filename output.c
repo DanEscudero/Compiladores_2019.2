@@ -12,9 +12,12 @@ scanf(%d, &a);
 c = ;
 d = ;
 b = ;
-if () {
+if (==) {
 printf("a eh igual a 2");
+}
+else {
 c = ;
 printf("a diferente de 2");
+}
 return 0;
 }

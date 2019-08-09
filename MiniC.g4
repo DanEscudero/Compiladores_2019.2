@@ -12,10 +12,11 @@ cmdRead: T_READ T_LP T_ID T_RP T_FINAL;
 
 cmdWrite: T_WRITE T_LP (T_ID | STRING) T_RP T_FINAL;
 
-cmdCondition:
-	T_IF T_LP condition T_RP T_LCB (cmd)+ T_RCB (
-		T_ELSE T_LCB (cmd)+ T_RCB
-	)?;
+cmdCondition: ifStmt (elseStmt)?;
+
+ifStmt: T_IF T_LP condition T_RP T_LCB (cmd)+ T_RCB;
+
+elseStmt: T_ELSE T_LCB (cmd)+ T_RCB;
 
 condition: expression T_OPERATORS expression;
 
