@@ -77,6 +77,16 @@ public interface MiniCListener extends ParseTreeListener {
 	 */
 	void exitCmdCondition(MiniCParser.CmdConditionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MiniCParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(MiniCParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MiniCParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(MiniCParser.ConditionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MiniCParser#cmdAssign}.
 	 * @param ctx the parse tree
 	 */

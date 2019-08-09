@@ -15,21 +15,20 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 	@Override
 	public void enterProg(MiniCParser.ProgContext ctx) {
 		// Initialize program importing IO lib and declaring main
-		outputLines.add("#import <stdio.h>");
-		outputLines.add("int main () {");
-
-		outputLines.add(""); // Add empty line for formatting
+		outputLines.add("#import <stdio.h>" + System.lineSeparator());
+		outputLines.add("int main () {" + System.lineSeparator());
 	}
 
 	@Override
 	public void exitProg(MiniCParser.ProgContext ctx) {
-		outputLines.add("return 0;");
-		outputLines.add("}");
+		outputLines.add("");
+		outputLines.add("return 0;" + System.lineSeparator());
+		outputLines.add("}" + System.lineSeparator());
 
 		try {
 			FileWriter writer = new FileWriter("./output.c");
 			for (String str : outputLines) {
-				writer.write(str + System.lineSeparator());
+				writer.write(str);
 			}
 			writer.close();
 		} catch (Exception e) {
@@ -43,10 +42,8 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 		for (TerminalNode var : declaredVars) {
 			String varName = var.getText();
 			integers.put(varName, 0); // Initialize all variables with 0
-			outputLines.add("int " + varName + " = 0;");
+			outputLines.add("int " + varName + " = 0;" + System.lineSeparator());
 		}
-
-		outputLines.add(""); // Add empty line for formatting
 	}
 
 	@Override
@@ -59,7 +56,7 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 		// Gets variable flag of type for scanf
 		String varFlag = getVarFlag(varName);
 
-		outputLines.add("scanf(" + varFlag + ", &" + varName + ");");
+		outputLines.add("scanf(" + varFlag + ", &" + varName + ");" + System.lineSeparator());
 
 		// TODO:
 		// if (chars.containsKey(var)) varFlag = "%c";
@@ -80,9 +77,9 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 			// Gets flag for printf
 			String varFlag = getVarFlag(varName);
 
-			outputLines.add("printf(" + varFlag + ", &" + varName + ";");
+			outputLines.add("printf(" + varFlag + ", &" + varName + ";" + System.lineSeparator());
 		} else {
-			outputLines.add("printf(" + string.getText() + ");");
+			outputLines.add("printf(" + string.getText() + ");" + System.lineSeparator());
 		}
 	}
 
@@ -99,5 +96,41 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 		} else {
 			return "";
 		}
+	}
+
+	@Override
+	public void enterCmdAssign(MiniCParser.CmdAssignContext ctx) {
+		String varName = ctx.T_ID().getText();
+
+		validateIdentifier(varName, ctx.getStart().getLine());
+
+		MiniCParser.ExpressionContext expressionContext = ctx.expression();
+
+		outputLines.add(varName + " = ");
+	}
+
+	@Override
+	public void exitCmdAssign(MiniCParser.CmdAssignContext ctx) {
+		outputLines.add(";" + System.lineSeparator());
+	}
+
+	private String getExpressionString(MiniCParser.ExpressionContext ctx) {
+		// TODO
+		return "";
+	}
+
+	@Override
+	public void enterCondition(MiniCParser.ConditionContext ctx) {
+		outputLines.add("if (");
+	}
+
+	@Override
+	public void exitCondition(MiniCParser.ConditionContext ctx) {
+		outputLines.add(") {" + System.lineSeparator());
+	}
+
+	private String getConditionString(MiniCParser.ConditionContext ctx) {
+		// TODO
+		return "";
 	}
 }

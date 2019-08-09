@@ -22,12 +22,12 @@ public class MiniCParser extends Parser {
 		T_RCB=22, T_LP=23, T_RP=24, T_COMMA=25, T_QUOTE=26;
 	public static final int
 		RULE_prog = 0, RULE_declara = 1, RULE_bloco = 2, RULE_cmd = 3, RULE_cmdRead = 4, 
-		RULE_cmdWrite = 5, RULE_cmdCondition = 6, RULE_cmdAssign = 7, RULE_expression = 8, 
-		RULE_term = 9, RULE_factor = 10;
+		RULE_cmdWrite = 5, RULE_cmdCondition = 6, RULE_condition = 7, RULE_cmdAssign = 8, 
+		RULE_expression = 9, RULE_term = 10, RULE_factor = 11;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"prog", "declara", "bloco", "cmd", "cmdRead", "cmdWrite", "cmdCondition", 
-			"cmdAssign", "expression", "term", "factor"
+			"condition", "cmdAssign", "expression", "term", "factor"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -128,13 +128,13 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(22);
-			match(T_INIT);
-			setState(23);
-			declara();
 			setState(24);
-			bloco();
+			match(T_INIT);
 			setState(25);
+			declara();
+			setState(26);
+			bloco();
+			setState(27);
 			match(T_END);
 			}
 		}
@@ -181,27 +181,27 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(27);
+			setState(29);
 			match(T_DECLARE);
-			setState(28);
+			setState(30);
 			match(T_ID);
-			setState(33);
+			setState(35);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T_COMMA) {
 				{
 				{
-				setState(29);
+				setState(31);
 				match(T_COMMA);
-				setState(30);
+				setState(32);
 				match(T_ID);
 				}
 				}
-				setState(35);
+				setState(37);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(36);
+			setState(38);
 			match(T_FINAL);
 			}
 		}
@@ -244,17 +244,17 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(39); 
+			setState(41); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(38);
+				setState(40);
 				cmd();
 				}
 				}
-				setState(41); 
+				setState(43); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_ID))) != 0) );
@@ -304,30 +304,30 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(47);
+			setState(49);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T_READ:
 				{
-				setState(43);
+				setState(45);
 				cmdRead();
 				}
 				break;
 			case T_WRITE:
 				{
-				setState(44);
+				setState(46);
 				cmdWrite();
 				}
 				break;
 			case T_ID:
 				{
-				setState(45);
+				setState(47);
 				cmdAssign();
 				}
 				break;
 			case T_IF:
 				{
-				setState(46);
+				setState(48);
 				cmdCondition();
 				}
 				break;
@@ -373,15 +373,15 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49);
-			match(T_READ);
-			setState(50);
-			match(T_LP);
 			setState(51);
-			match(T_ID);
+			match(T_READ);
 			setState(52);
-			match(T_RP);
+			match(T_LP);
 			setState(53);
+			match(T_ID);
+			setState(54);
+			match(T_RP);
+			setState(55);
 			match(T_FINAL);
 			}
 		}
@@ -424,11 +424,11 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55);
-			match(T_WRITE);
-			setState(56);
-			match(T_LP);
 			setState(57);
+			match(T_WRITE);
+			setState(58);
+			match(T_LP);
+			setState(59);
 			_la = _input.LA(1);
 			if ( !(_la==T_ID || _la==STRING) ) {
 			_errHandler.recoverInline(this);
@@ -438,9 +438,9 @@ public class MiniCParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(58);
+			setState(60);
 			match(T_RP);
-			setState(59);
+			setState(61);
 			match(T_FINAL);
 			}
 		}
@@ -458,13 +458,9 @@ public class MiniCParser extends Parser {
 	public static class CmdConditionContext extends ParserRuleContext {
 		public TerminalNode T_IF() { return getToken(MiniCParser.T_IF, 0); }
 		public TerminalNode T_LP() { return getToken(MiniCParser.T_LP, 0); }
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
+		public ConditionContext condition() {
+			return getRuleContext(ConditionContext.class,0);
 		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode T_OPERATORS() { return getToken(MiniCParser.T_OPERATORS, 0); }
 		public TerminalNode T_RP() { return getToken(MiniCParser.T_RP, 0); }
 		public List<TerminalNode> T_LCB() { return getTokens(MiniCParser.T_LCB); }
 		public TerminalNode T_LCB(int i) {
@@ -502,16 +498,12 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(61);
-			match(T_IF);
-			setState(62);
-			match(T_LP);
 			setState(63);
-			expression();
+			match(T_IF);
 			setState(64);
-			match(T_OPERATORS);
+			match(T_LP);
 			setState(65);
-			expression();
+			condition();
 			setState(66);
 			match(T_RP);
 			setState(67);
@@ -573,6 +565,53 @@ public class MiniCParser extends Parser {
 		return _localctx;
 	}
 
+	public static class ConditionContext extends ParserRuleContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode T_OPERATORS() { return getToken(MiniCParser.T_OPERATORS, 0); }
+		public ConditionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_condition; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).enterCondition(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniCListener ) ((MiniCListener)listener).exitCondition(this);
+		}
+	}
+
+	public final ConditionContext condition() throws RecognitionException {
+		ConditionContext _localctx = new ConditionContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_condition);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(85);
+			expression();
+			setState(86);
+			match(T_OPERATORS);
+			setState(87);
+			expression();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static class CmdAssignContext extends ParserRuleContext {
 		public TerminalNode T_ID() { return getToken(MiniCParser.T_ID, 0); }
 		public TerminalNode T_ASSIGN() { return getToken(MiniCParser.T_ASSIGN, 0); }
@@ -596,17 +635,17 @@ public class MiniCParser extends Parser {
 
 	public final CmdAssignContext cmdAssign() throws RecognitionException {
 		CmdAssignContext _localctx = new CmdAssignContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_cmdAssign);
+		enterRule(_localctx, 16, RULE_cmdAssign);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(85);
+			setState(89);
 			match(T_ID);
-			setState(86);
+			setState(90);
 			match(T_ASSIGN);
-			setState(87);
+			setState(91);
 			expression();
-			setState(88);
+			setState(92);
 			match(T_FINAL);
 			}
 		}
@@ -652,20 +691,20 @@ public class MiniCParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_expression);
+		enterRule(_localctx, 18, RULE_expression);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(90);
+			setState(94);
 			term();
-			setState(95);
+			setState(99);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T_SUM || _la==T_SUB) {
 				{
 				{
-				setState(91);
+				setState(95);
 				_la = _input.LA(1);
 				if ( !(_la==T_SUM || _la==T_SUB) ) {
 				_errHandler.recoverInline(this);
@@ -675,11 +714,11 @@ public class MiniCParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(92);
+				setState(96);
 				term();
 				}
 				}
-				setState(97);
+				setState(101);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -727,20 +766,20 @@ public class MiniCParser extends Parser {
 
 	public final TermContext term() throws RecognitionException {
 		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_term);
+		enterRule(_localctx, 20, RULE_term);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(98);
+			setState(102);
 			factor();
-			setState(103);
+			setState(107);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T_MUL || _la==T_DIV) {
 				{
 				{
-				setState(99);
+				setState(103);
 				_la = _input.LA(1);
 				if ( !(_la==T_MUL || _la==T_DIV) ) {
 				_errHandler.recoverInline(this);
@@ -750,11 +789,11 @@ public class MiniCParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(100);
+				setState(104);
 				factor();
 				}
 				}
-				setState(105);
+				setState(109);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -795,22 +834,22 @@ public class MiniCParser extends Parser {
 
 	public final FactorContext factor() throws RecognitionException {
 		FactorContext _localctx = new FactorContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_factor);
+		enterRule(_localctx, 22, RULE_factor);
 		try {
-			setState(112);
+			setState(116);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T_NUM:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(106);
+				setState(110);
 				match(T_NUM);
 				}
 				break;
 			case T_ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(107);
+				setState(111);
 				match(T_ID);
 				}
 				break;
@@ -818,11 +857,11 @@ public class MiniCParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				{
-				setState(108);
+				setState(112);
 				match(T_LP);
-				setState(109);
+				setState(113);
 				expression();
-				setState(110);
+				setState(114);
 				match(T_RP);
 				}
 				}
@@ -843,34 +882,35 @@ public class MiniCParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\34u\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\34y\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\7\3\"\n\3\f\3\16\3%\13\3\3"+
-		"\3\3\3\3\4\6\4*\n\4\r\4\16\4+\3\5\3\5\3\5\3\5\5\5\62\n\5\3\6\3\6\3\6\3"+
-		"\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\6\b"+
+		"\f\t\f\4\r\t\r\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\7\3$\n\3\f\3\16\3\'"+
+		"\13\3\3\3\3\3\3\4\6\4,\n\4\r\4\16\4-\3\5\3\5\3\5\3\5\5\5\64\n\5\3\6\3"+
+		"\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\6\b"+
 		"H\n\b\r\b\16\bI\3\b\3\b\3\b\3\b\6\bP\n\b\r\b\16\bQ\3\b\3\b\5\bV\n\b\3"+
-		"\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\7\n`\n\n\f\n\16\nc\13\n\3\13\3\13\3\13"+
-		"\7\13h\n\13\f\13\16\13k\13\13\3\f\3\f\3\f\3\f\3\f\3\f\5\fs\n\f\3\f\2\2"+
-		"\r\2\4\6\b\n\f\16\20\22\24\26\2\5\4\2\21\21\24\24\3\2\r\16\3\2\17\20\2"+
-		"u\2\30\3\2\2\2\4\35\3\2\2\2\6)\3\2\2\2\b\61\3\2\2\2\n\63\3\2\2\2\f9\3"+
-		"\2\2\2\16?\3\2\2\2\20W\3\2\2\2\22\\\3\2\2\2\24d\3\2\2\2\26r\3\2\2\2\30"+
-		"\31\7\4\2\2\31\32\5\4\3\2\32\33\5\6\4\2\33\34\7\5\2\2\34\3\3\2\2\2\35"+
-		"\36\7\6\2\2\36#\7\21\2\2\37 \7\33\2\2 \"\7\21\2\2!\37\3\2\2\2\"%\3\2\2"+
-		"\2#!\3\2\2\2#$\3\2\2\2$&\3\2\2\2%#\3\2\2\2&\'\7\25\2\2\'\5\3\2\2\2(*\5"+
-		"\b\5\2)(\3\2\2\2*+\3\2\2\2+)\3\2\2\2+,\3\2\2\2,\7\3\2\2\2-\62\5\n\6\2"+
-		".\62\5\f\7\2/\62\5\20\t\2\60\62\5\16\b\2\61-\3\2\2\2\61.\3\2\2\2\61/\3"+
-		"\2\2\2\61\60\3\2\2\2\62\t\3\2\2\2\63\64\7\7\2\2\64\65\7\31\2\2\65\66\7"+
-		"\21\2\2\66\67\7\32\2\2\678\7\25\2\28\13\3\2\2\29:\7\b\2\2:;\7\31\2\2;"+
-		"<\t\2\2\2<=\7\32\2\2=>\7\25\2\2>\r\3\2\2\2?@\7\t\2\2@A\7\31\2\2AB\5\22"+
-		"\n\2BC\7\f\2\2CD\5\22\n\2DE\7\32\2\2EG\7\27\2\2FH\5\b\5\2GF\3\2\2\2HI"+
-		"\3\2\2\2IG\3\2\2\2IJ\3\2\2\2JK\3\2\2\2KU\7\30\2\2LM\7\13\2\2MO\7\27\2"+
-		"\2NP\5\b\5\2ON\3\2\2\2PQ\3\2\2\2QO\3\2\2\2QR\3\2\2\2RS\3\2\2\2ST\7\30"+
-		"\2\2TV\3\2\2\2UL\3\2\2\2UV\3\2\2\2V\17\3\2\2\2WX\7\21\2\2XY\7\26\2\2Y"+
-		"Z\5\22\n\2Z[\7\25\2\2[\21\3\2\2\2\\a\5\24\13\2]^\t\3\2\2^`\5\24\13\2_"+
-		"]\3\2\2\2`c\3\2\2\2a_\3\2\2\2ab\3\2\2\2b\23\3\2\2\2ca\3\2\2\2di\5\26\f"+
-		"\2ef\t\4\2\2fh\5\26\f\2ge\3\2\2\2hk\3\2\2\2ig\3\2\2\2ij\3\2\2\2j\25\3"+
-		"\2\2\2ki\3\2\2\2ls\7\23\2\2ms\7\21\2\2no\7\31\2\2op\5\22\n\2pq\7\32\2"+
-		"\2qs\3\2\2\2rl\3\2\2\2rm\3\2\2\2rn\3\2\2\2s\27\3\2\2\2\13#+\61IQUair";
+		"\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\13\7\13d\n\13\f\13\16\13"+
+		"g\13\13\3\f\3\f\3\f\7\fl\n\f\f\f\16\fo\13\f\3\r\3\r\3\r\3\r\3\r\3\r\5"+
+		"\rw\n\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\5\4\2\21\21\24\24\3"+
+		"\2\r\16\3\2\17\20\2x\2\32\3\2\2\2\4\37\3\2\2\2\6+\3\2\2\2\b\63\3\2\2\2"+
+		"\n\65\3\2\2\2\f;\3\2\2\2\16A\3\2\2\2\20W\3\2\2\2\22[\3\2\2\2\24`\3\2\2"+
+		"\2\26h\3\2\2\2\30v\3\2\2\2\32\33\7\4\2\2\33\34\5\4\3\2\34\35\5\6\4\2\35"+
+		"\36\7\5\2\2\36\3\3\2\2\2\37 \7\6\2\2 %\7\21\2\2!\"\7\33\2\2\"$\7\21\2"+
+		"\2#!\3\2\2\2$\'\3\2\2\2%#\3\2\2\2%&\3\2\2\2&(\3\2\2\2\'%\3\2\2\2()\7\25"+
+		"\2\2)\5\3\2\2\2*,\5\b\5\2+*\3\2\2\2,-\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\7\3"+
+		"\2\2\2/\64\5\n\6\2\60\64\5\f\7\2\61\64\5\22\n\2\62\64\5\16\b\2\63/\3\2"+
+		"\2\2\63\60\3\2\2\2\63\61\3\2\2\2\63\62\3\2\2\2\64\t\3\2\2\2\65\66\7\7"+
+		"\2\2\66\67\7\31\2\2\678\7\21\2\289\7\32\2\29:\7\25\2\2:\13\3\2\2\2;<\7"+
+		"\b\2\2<=\7\31\2\2=>\t\2\2\2>?\7\32\2\2?@\7\25\2\2@\r\3\2\2\2AB\7\t\2\2"+
+		"BC\7\31\2\2CD\5\20\t\2DE\7\32\2\2EG\7\27\2\2FH\5\b\5\2GF\3\2\2\2HI\3\2"+
+		"\2\2IG\3\2\2\2IJ\3\2\2\2JK\3\2\2\2KU\7\30\2\2LM\7\13\2\2MO\7\27\2\2NP"+
+		"\5\b\5\2ON\3\2\2\2PQ\3\2\2\2QO\3\2\2\2QR\3\2\2\2RS\3\2\2\2ST\7\30\2\2"+
+		"TV\3\2\2\2UL\3\2\2\2UV\3\2\2\2V\17\3\2\2\2WX\5\24\13\2XY\7\f\2\2YZ\5\24"+
+		"\13\2Z\21\3\2\2\2[\\\7\21\2\2\\]\7\26\2\2]^\5\24\13\2^_\7\25\2\2_\23\3"+
+		"\2\2\2`e\5\26\f\2ab\t\3\2\2bd\5\26\f\2ca\3\2\2\2dg\3\2\2\2ec\3\2\2\2e"+
+		"f\3\2\2\2f\25\3\2\2\2ge\3\2\2\2hm\5\30\r\2ij\t\4\2\2jl\5\30\r\2ki\3\2"+
+		"\2\2lo\3\2\2\2mk\3\2\2\2mn\3\2\2\2n\27\3\2\2\2om\3\2\2\2pw\7\23\2\2qw"+
+		"\7\21\2\2rs\7\31\2\2st\5\24\13\2tu\7\32\2\2uw\3\2\2\2vp\3\2\2\2vq\3\2"+
+		"\2\2vr\3\2\2\2w\31\3\2\2\2\13%-\63IQUemv";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
