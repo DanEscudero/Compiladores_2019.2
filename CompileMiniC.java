@@ -36,8 +36,8 @@ public class CompileMiniC {
 
 				System.out.println("Compilação terminada!");
 			} catch (Exception e) {
-				System.out.println("Erro de compilação." + e);
-				// System.out.println(e.getMessage());
+				System.out.println("Erro de compilação:" + e);
+				System.out.println(e.getMessage());
 			}
 		}
 	}
