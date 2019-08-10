@@ -1,13 +1,13 @@
-#import <stdio.h>
+#include <stdio.h>
 int main () {
-int x01;
-int x02;
-int a;
-int b;
-int c;
-int d;
-double f1;
-double f2;
+int x01 = 0;
+int x02 = 0;
+int a = 0;
+int b = 0;
+int c = 0;
+int d = 0;
+double f1 = 0;
+double f2 = 0;
 scanf("%d", &x01);
 scanf("%d", &x02);
 scanf("%d", &a);
@@ -26,6 +26,11 @@ else {
 c = 1;
 printf("a diferente de 2");
 }
-
+while (a>b) {
+a = a+1;
+}
+do {
+scanf("%lf", &f1);
+} while (f1>0.02);
 return 0;
 }

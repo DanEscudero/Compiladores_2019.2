@@ -6,7 +6,14 @@ declare: (T_INT | T_FLOAT) T_ID (T_COMMA T_ID)* T_FINAL;
 
 block: (cmd)+;
 
-cmd: (cmdRead | cmdWrite | cmdAssign | cmdCondition);
+cmd: (
+		cmdRead
+		| cmdWrite
+		| cmdAssign
+		| cmdCondition
+		| cmdWhile
+		| cmdDoWhile
+	);
 
 cmdRead: T_READ T_LP T_ID T_RP T_FINAL;
 
@@ -14,13 +21,18 @@ cmdWrite: T_WRITE T_LP (T_ID | STRING) T_RP T_FINAL;
 
 cmdCondition: ifStmt (elseStmt)?;
 
-ifStmt: T_IF T_LP condition T_RP T_LCB (cmd)+ T_RCB;
+cmdAssign: T_ID T_ASSIGN expression T_FINAL;
 
-elseStmt: T_ELSE T_LCB (cmd)+ T_RCB;
+cmdWhile: T_WHILE T_LP condition T_RP T_LCB (block)* T_RCB;
+
+cmdDoWhile:
+	T_DO T_LCB (block)* T_RCB T_WHILE T_LP condition T_RP T_FINAL;
+
+ifStmt: T_IF T_LP condition T_RP T_LCB (block)* T_RCB;
+
+elseStmt: T_ELSE T_LCB (block)* T_RCB;
 
 condition: expression T_OPERATORS expression;
-
-cmdAssign: T_ID T_ASSIGN expression T_FINAL;
 
 expression: term (T_ARITH_1 term)*;
 
@@ -41,6 +53,8 @@ T_THEN: 'entao';
 T_ELSE: 'senao';
 T_INT: 'int';
 T_FLOAT: 'float';
+T_WHILE: 'enquanto';
+T_DO: 'faca';
 
 T_OPERATORS:
 	'<'

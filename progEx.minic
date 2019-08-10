@@ -18,4 +18,12 @@ programa
 		c = 1;
 		escreva("a diferente de 2");
 	}
+
+	enquanto (a > b) {
+		b = b + 1;
+	}
+
+	faca {
+		leia(f1);
+	} enquanto (f1 > 0.02);
 fimPrograma

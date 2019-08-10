@@ -53,7 +53,7 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 				floats.put(varName, 0d); // Initialize all variables with 0
 			}
 
-			outputLines.add(getVarType(varName) + " " + varName + ";" + System.lineSeparator());
+			outputLines.add(getVarType(varName) + " " + varName + " = 0;" + System.lineSeparator());
 		}
 
 	}
@@ -199,5 +199,27 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 	@Override
 	public void exitElseStmt(MiniCParser.ElseStmtContext ctx) {
 		outputLines.add("}" + System.lineSeparator());
+	}
+
+	@Override
+	public void enterCmdWhile(MiniCParser.CmdWhileContext ctx) {
+		MiniCParser.ConditionContext condition = ctx.condition();
+		outputLines.add("while (" + getConditionString(condition) + ") {" + System.lineSeparator());
+	}
+
+	@Override
+	public void exitCmdWhile(MiniCParser.CmdWhileContext ctx) {
+		outputLines.add("}" + System.lineSeparator());
+	}
+
+	@Override
+	public void enterCmdDoWhile(MiniCParser.CmdDoWhileContext ctx) {
+		outputLines.add("do {" + System.lineSeparator());
+	}
+
+	@Override
+	public void exitCmdDoWhile(MiniCParser.CmdDoWhileContext ctx) {
+		MiniCParser.ConditionContext condition = ctx.condition();
+		outputLines.add("} while (" + getConditionString(condition) + ");" + System.lineSeparator());
 	}
 }

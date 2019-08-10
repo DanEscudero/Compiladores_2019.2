@@ -17,31 +17,32 @@ public class MiniCParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T_BLANK=1, T_INIT=2, T_END=3, T_DECLARE=4, T_READ=5, T_WRITE=6, T_IF=7, 
-		T_THEN=8, T_ELSE=9, T_INT=10, T_FLOAT=11, T_OPERATORS=12, T_ARITH_1=13, 
-		T_ARITH_2=14, T_ID=15, T_LETTER=16, T_NUM=17, STRING=18, T_FINAL=19, T_ASSIGN=20, 
-		T_LCB=21, T_RCB=22, T_LP=23, T_RP=24, T_COMMA=25, T_QUOTE=26, T_SQUOTE=27;
+		T_THEN=8, T_ELSE=9, T_INT=10, T_FLOAT=11, T_WHILE=12, T_DO=13, T_OPERATORS=14, 
+		T_ARITH_1=15, T_ARITH_2=16, T_ID=17, T_LETTER=18, T_NUM=19, STRING=20, 
+		T_FINAL=21, T_ASSIGN=22, T_LCB=23, T_RCB=24, T_LP=25, T_RP=26, T_COMMA=27, 
+		T_QUOTE=28, T_SQUOTE=29;
 	public static final int
 		RULE_prog = 0, RULE_declare = 1, RULE_block = 2, RULE_cmd = 3, RULE_cmdRead = 4, 
-		RULE_cmdWrite = 5, RULE_cmdCondition = 6, RULE_ifStmt = 7, RULE_elseStmt = 8, 
-		RULE_condition = 9, RULE_cmdAssign = 10, RULE_expression = 11, RULE_term = 12, 
-		RULE_factor = 13;
+		RULE_cmdWrite = 5, RULE_cmdCondition = 6, RULE_cmdAssign = 7, RULE_cmdWhile = 8, 
+		RULE_cmdDoWhile = 9, RULE_ifStmt = 10, RULE_elseStmt = 11, RULE_condition = 12, 
+		RULE_expression = 13, RULE_term = 14, RULE_factor = 15;
 	public static final String[] ruleNames = {
 		"prog", "declare", "block", "cmd", "cmdRead", "cmdWrite", "cmdCondition", 
-		"ifStmt", "elseStmt", "condition", "cmdAssign", "expression", "term", 
-		"factor"
+		"cmdAssign", "cmdWhile", "cmdDoWhile", "ifStmt", "elseStmt", "condition", 
+		"expression", "term", "factor"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
 		null, null, "'programa'", "'fimPrograma'", "'var'", "'leia'", "'escreva'", 
-		"'se'", "'entao'", "'senao'", "'int'", "'float'", null, null, null, null, 
-		null, null, null, "';'", "'='", "'{'", "'}'", "'('", "')'", "','", "'\"'", 
-		"'''"
+		"'se'", "'entao'", "'senao'", "'int'", "'float'", "'enquanto'", "'faca'", 
+		null, null, null, null, null, null, null, "';'", "'='", "'{'", "'}'", 
+		"'('", "')'", "','", "'\"'", "'''"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "T_BLANK", "T_INIT", "T_END", "T_DECLARE", "T_READ", "T_WRITE", 
-		"T_IF", "T_THEN", "T_ELSE", "T_INT", "T_FLOAT", "T_OPERATORS", "T_ARITH_1", 
-		"T_ARITH_2", "T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", "T_ASSIGN", 
-		"T_LCB", "T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE", "T_SQUOTE"
+		"T_IF", "T_THEN", "T_ELSE", "T_INT", "T_FLOAT", "T_WHILE", "T_DO", "T_OPERATORS", 
+		"T_ARITH_1", "T_ARITH_2", "T_ID", "T_LETTER", "T_NUM", "STRING", "T_FINAL", 
+		"T_ASSIGN", "T_LCB", "T_RCB", "T_LP", "T_RP", "T_COMMA", "T_QUOTE", "T_SQUOTE"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -117,25 +118,25 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(28);
+			setState(32);
 			match(T_INIT);
-			setState(30); 
+			setState(34); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(29);
+				setState(33);
 				declare();
 				}
 				}
-				setState(32); 
+				setState(36); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T_INT || _la==T_FLOAT );
-			setState(34);
+			setState(38);
 			block();
-			setState(35);
+			setState(39);
 			match(T_END);
 			}
 		}
@@ -175,7 +176,7 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(37);
+			setState(41);
 			_la = _input.LA(1);
 			if ( !(_la==T_INT || _la==T_FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -185,25 +186,25 @@ public class MiniCParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(38);
+			setState(42);
 			match(T_ID);
-			setState(43);
+			setState(47);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T_COMMA) {
 				{
 				{
-				setState(39);
+				setState(43);
 				match(T_COMMA);
-				setState(40);
+				setState(44);
 				match(T_ID);
 				}
 				}
-				setState(45);
+				setState(49);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(46);
+			setState(50);
 			match(T_FINAL);
 			}
 		}
@@ -234,24 +235,30 @@ public class MiniCParser extends Parser {
 	public final BlockContext block() throws RecognitionException {
 		BlockContext _localctx = new BlockContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_block);
-		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49); 
+			setState(53); 
 			_errHandler.sync(this);
-			_la = _input.LA(1);
+			_alt = 1;
 			do {
-				{
-				{
-				setState(48);
-				cmd();
+				switch (_alt) {
+				case 1:
+					{
+					{
+					setState(52);
+					cmd();
+					}
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
 				}
-				}
-				setState(51); 
+				setState(55); 
 				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_ID))) != 0) );
+				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 			}
 		}
 		catch (RecognitionException re) {
@@ -278,6 +285,12 @@ public class MiniCParser extends Parser {
 		public CmdConditionContext cmdCondition() {
 			return getRuleContext(CmdConditionContext.class,0);
 		}
+		public CmdWhileContext cmdWhile() {
+			return getRuleContext(CmdWhileContext.class,0);
+		}
+		public CmdDoWhileContext cmdDoWhile() {
+			return getRuleContext(CmdDoWhileContext.class,0);
+		}
 		public CmdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -290,31 +303,43 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
+			setState(63);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T_READ:
 				{
-				setState(53);
+				setState(57);
 				cmdRead();
 				}
 				break;
 			case T_WRITE:
 				{
-				setState(54);
+				setState(58);
 				cmdWrite();
 				}
 				break;
 			case T_ID:
 				{
-				setState(55);
+				setState(59);
 				cmdAssign();
 				}
 				break;
 			case T_IF:
 				{
-				setState(56);
+				setState(60);
 				cmdCondition();
+				}
+				break;
+			case T_WHILE:
+				{
+				setState(61);
+				cmdWhile();
+				}
+				break;
+			case T_DO:
+				{
+				setState(62);
+				cmdDoWhile();
 				}
 				break;
 			default:
@@ -351,15 +376,15 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(59);
+			setState(65);
 			match(T_READ);
-			setState(60);
+			setState(66);
 			match(T_LP);
-			setState(61);
+			setState(67);
 			match(T_ID);
-			setState(62);
+			setState(68);
 			match(T_RP);
-			setState(63);
+			setState(69);
 			match(T_FINAL);
 			}
 		}
@@ -394,11 +419,11 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(65);
+			setState(71);
 			match(T_WRITE);
-			setState(66);
+			setState(72);
 			match(T_LP);
-			setState(67);
+			setState(73);
 			_la = _input.LA(1);
 			if ( !(_la==T_ID || _la==STRING) ) {
 			_errHandler.recoverInline(this);
@@ -408,9 +433,9 @@ public class MiniCParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(68);
+			setState(74);
 			match(T_RP);
-			setState(69);
+			setState(75);
 			match(T_FINAL);
 			}
 		}
@@ -445,18 +470,198 @@ public class MiniCParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(71);
+			setState(77);
 			ifStmt();
-			setState(73);
+			setState(79);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T_ELSE) {
 				{
-				setState(72);
+				setState(78);
 				elseStmt();
 				}
 			}
 
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class CmdAssignContext extends ParserRuleContext {
+		public TerminalNode T_ID() { return getToken(MiniCParser.T_ID, 0); }
+		public TerminalNode T_ASSIGN() { return getToken(MiniCParser.T_ASSIGN, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode T_FINAL() { return getToken(MiniCParser.T_FINAL, 0); }
+		public CmdAssignContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cmdAssign; }
+	}
+
+	public final CmdAssignContext cmdAssign() throws RecognitionException {
+		CmdAssignContext _localctx = new CmdAssignContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_cmdAssign);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(81);
+			match(T_ID);
+			setState(82);
+			match(T_ASSIGN);
+			setState(83);
+			expression();
+			setState(84);
+			match(T_FINAL);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class CmdWhileContext extends ParserRuleContext {
+		public TerminalNode T_WHILE() { return getToken(MiniCParser.T_WHILE, 0); }
+		public TerminalNode T_LP() { return getToken(MiniCParser.T_LP, 0); }
+		public ConditionContext condition() {
+			return getRuleContext(ConditionContext.class,0);
+		}
+		public TerminalNode T_RP() { return getToken(MiniCParser.T_RP, 0); }
+		public TerminalNode T_LCB() { return getToken(MiniCParser.T_LCB, 0); }
+		public TerminalNode T_RCB() { return getToken(MiniCParser.T_RCB, 0); }
+		public List<BlockContext> block() {
+			return getRuleContexts(BlockContext.class);
+		}
+		public BlockContext block(int i) {
+			return getRuleContext(BlockContext.class,i);
+		}
+		public CmdWhileContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cmdWhile; }
+	}
+
+	public final CmdWhileContext cmdWhile() throws RecognitionException {
+		CmdWhileContext _localctx = new CmdWhileContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_cmdWhile);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(86);
+			match(T_WHILE);
+			setState(87);
+			match(T_LP);
+			setState(88);
+			condition();
+			setState(89);
+			match(T_RP);
+			setState(90);
+			match(T_LCB);
+			setState(94);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_WHILE) | (1L << T_DO) | (1L << T_ID))) != 0)) {
+				{
+				{
+				setState(91);
+				block();
+				}
+				}
+				setState(96);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(97);
+			match(T_RCB);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class CmdDoWhileContext extends ParserRuleContext {
+		public TerminalNode T_DO() { return getToken(MiniCParser.T_DO, 0); }
+		public TerminalNode T_LCB() { return getToken(MiniCParser.T_LCB, 0); }
+		public TerminalNode T_RCB() { return getToken(MiniCParser.T_RCB, 0); }
+		public TerminalNode T_WHILE() { return getToken(MiniCParser.T_WHILE, 0); }
+		public TerminalNode T_LP() { return getToken(MiniCParser.T_LP, 0); }
+		public ConditionContext condition() {
+			return getRuleContext(ConditionContext.class,0);
+		}
+		public TerminalNode T_RP() { return getToken(MiniCParser.T_RP, 0); }
+		public TerminalNode T_FINAL() { return getToken(MiniCParser.T_FINAL, 0); }
+		public List<BlockContext> block() {
+			return getRuleContexts(BlockContext.class);
+		}
+		public BlockContext block(int i) {
+			return getRuleContext(BlockContext.class,i);
+		}
+		public CmdDoWhileContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cmdDoWhile; }
+	}
+
+	public final CmdDoWhileContext cmdDoWhile() throws RecognitionException {
+		CmdDoWhileContext _localctx = new CmdDoWhileContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_cmdDoWhile);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(99);
+			match(T_DO);
+			setState(100);
+			match(T_LCB);
+			setState(104);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_WHILE) | (1L << T_DO) | (1L << T_ID))) != 0)) {
+				{
+				{
+				setState(101);
+				block();
+				}
+				}
+				setState(106);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(107);
+			match(T_RCB);
+			setState(108);
+			match(T_WHILE);
+			setState(109);
+			match(T_LP);
+			setState(110);
+			condition();
+			setState(111);
+			match(T_RP);
+			setState(112);
+			match(T_FINAL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -479,11 +684,11 @@ public class MiniCParser extends Parser {
 		public TerminalNode T_RP() { return getToken(MiniCParser.T_RP, 0); }
 		public TerminalNode T_LCB() { return getToken(MiniCParser.T_LCB, 0); }
 		public TerminalNode T_RCB() { return getToken(MiniCParser.T_RCB, 0); }
-		public List<CmdContext> cmd() {
-			return getRuleContexts(CmdContext.class);
+		public List<BlockContext> block() {
+			return getRuleContexts(BlockContext.class);
 		}
-		public CmdContext cmd(int i) {
-			return getRuleContext(CmdContext.class,i);
+		public BlockContext block(int i) {
+			return getRuleContext(BlockContext.class,i);
 		}
 		public IfStmtContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -493,36 +698,36 @@ public class MiniCParser extends Parser {
 
 	public final IfStmtContext ifStmt() throws RecognitionException {
 		IfStmtContext _localctx = new IfStmtContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_ifStmt);
+		enterRule(_localctx, 20, RULE_ifStmt);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(75);
+			setState(114);
 			match(T_IF);
-			setState(76);
+			setState(115);
 			match(T_LP);
-			setState(77);
+			setState(116);
 			condition();
-			setState(78);
+			setState(117);
 			match(T_RP);
-			setState(79);
+			setState(118);
 			match(T_LCB);
-			setState(81); 
+			setState(122);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			do {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_WHILE) | (1L << T_DO) | (1L << T_ID))) != 0)) {
 				{
 				{
-				setState(80);
-				cmd();
+				setState(119);
+				block();
 				}
 				}
-				setState(83); 
+				setState(124);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_ID))) != 0) );
-			setState(85);
+			}
+			setState(125);
 			match(T_RCB);
 			}
 		}
@@ -541,11 +746,11 @@ public class MiniCParser extends Parser {
 		public TerminalNode T_ELSE() { return getToken(MiniCParser.T_ELSE, 0); }
 		public TerminalNode T_LCB() { return getToken(MiniCParser.T_LCB, 0); }
 		public TerminalNode T_RCB() { return getToken(MiniCParser.T_RCB, 0); }
-		public List<CmdContext> cmd() {
-			return getRuleContexts(CmdContext.class);
+		public List<BlockContext> block() {
+			return getRuleContexts(BlockContext.class);
 		}
-		public CmdContext cmd(int i) {
-			return getRuleContext(CmdContext.class,i);
+		public BlockContext block(int i) {
+			return getRuleContext(BlockContext.class,i);
 		}
 		public ElseStmtContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -555,30 +760,30 @@ public class MiniCParser extends Parser {
 
 	public final ElseStmtContext elseStmt() throws RecognitionException {
 		ElseStmtContext _localctx = new ElseStmtContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_elseStmt);
+		enterRule(_localctx, 22, RULE_elseStmt);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(87);
+			setState(127);
 			match(T_ELSE);
-			setState(88);
+			setState(128);
 			match(T_LCB);
-			setState(90); 
+			setState(132);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			do {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_WHILE) | (1L << T_DO) | (1L << T_ID))) != 0)) {
 				{
 				{
-				setState(89);
-				cmd();
+				setState(129);
+				block();
 				}
 				}
-				setState(92); 
+				setState(134);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T_READ) | (1L << T_WRITE) | (1L << T_IF) | (1L << T_ID))) != 0) );
-			setState(94);
+			}
+			setState(135);
 			match(T_RCB);
 			}
 		}
@@ -609,56 +814,16 @@ public class MiniCParser extends Parser {
 
 	public final ConditionContext condition() throws RecognitionException {
 		ConditionContext _localctx = new ConditionContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_condition);
+		enterRule(_localctx, 24, RULE_condition);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(96);
+			setState(137);
 			expression();
-			setState(97);
+			setState(138);
 			match(T_OPERATORS);
-			setState(98);
+			setState(139);
 			expression();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class CmdAssignContext extends ParserRuleContext {
-		public TerminalNode T_ID() { return getToken(MiniCParser.T_ID, 0); }
-		public TerminalNode T_ASSIGN() { return getToken(MiniCParser.T_ASSIGN, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode T_FINAL() { return getToken(MiniCParser.T_FINAL, 0); }
-		public CmdAssignContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_cmdAssign; }
-	}
-
-	public final CmdAssignContext cmdAssign() throws RecognitionException {
-		CmdAssignContext _localctx = new CmdAssignContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_cmdAssign);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(100);
-			match(T_ID);
-			setState(101);
-			match(T_ASSIGN);
-			setState(102);
-			expression();
-			setState(103);
-			match(T_FINAL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -691,26 +856,26 @@ public class MiniCParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_expression);
+		enterRule(_localctx, 26, RULE_expression);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105);
+			setState(141);
 			term();
-			setState(110);
+			setState(146);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T_ARITH_1) {
 				{
 				{
-				setState(106);
+				setState(142);
 				match(T_ARITH_1);
-				setState(107);
+				setState(143);
 				term();
 				}
 				}
-				setState(112);
+				setState(148);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -746,26 +911,26 @@ public class MiniCParser extends Parser {
 
 	public final TermContext term() throws RecognitionException {
 		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_term);
+		enterRule(_localctx, 28, RULE_term);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(113);
+			setState(149);
 			factor();
-			setState(118);
+			setState(154);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T_ARITH_2) {
 				{
 				{
-				setState(114);
+				setState(150);
 				match(T_ARITH_2);
-				setState(115);
+				setState(151);
 				factor();
 				}
 				}
-				setState(120);
+				setState(156);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -798,22 +963,22 @@ public class MiniCParser extends Parser {
 
 	public final FactorContext factor() throws RecognitionException {
 		FactorContext _localctx = new FactorContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_factor);
+		enterRule(_localctx, 30, RULE_factor);
 		try {
-			setState(127);
+			setState(163);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T_NUM:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(121);
+				setState(157);
 				match(T_NUM);
 				}
 				break;
 			case T_ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(122);
+				setState(158);
 				match(T_ID);
 				}
 				break;
@@ -821,11 +986,11 @@ public class MiniCParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				{
-				setState(123);
+				setState(159);
 				match(T_LP);
-				setState(124);
+				setState(160);
 				expression();
-				setState(125);
+				setState(161);
 				match(T_RP);
 				}
 				}
@@ -846,38 +1011,53 @@ public class MiniCParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\35\u0084\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37\u00a8\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2\6\2!\n\2\r\2\16\2\""+
-		"\3\2\3\2\3\2\3\3\3\3\3\3\3\3\7\3,\n\3\f\3\16\3/\13\3\3\3\3\3\3\4\6\4\64"+
-		"\n\4\r\4\16\4\65\3\5\3\5\3\5\3\5\5\5<\n\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7"+
-		"\3\7\3\7\3\7\3\7\3\7\3\b\3\b\5\bL\n\b\3\t\3\t\3\t\3\t\3\t\3\t\6\tT\n\t"+
-		"\r\t\16\tU\3\t\3\t\3\n\3\n\3\n\6\n]\n\n\r\n\16\n^\3\n\3\n\3\13\3\13\3"+
-		"\13\3\13\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\7\ro\n\r\f\r\16\rr\13\r\3\16"+
-		"\3\16\3\16\7\16w\n\16\f\16\16\16z\13\16\3\17\3\17\3\17\3\17\3\17\3\17"+
-		"\5\17\u0082\n\17\3\17\2\2\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2\4\3"+
-		"\2\f\r\4\2\21\21\24\24\2\u0082\2\36\3\2\2\2\4\'\3\2\2\2\6\63\3\2\2\2\b"+
-		";\3\2\2\2\n=\3\2\2\2\fC\3\2\2\2\16I\3\2\2\2\20M\3\2\2\2\22Y\3\2\2\2\24"+
-		"b\3\2\2\2\26f\3\2\2\2\30k\3\2\2\2\32s\3\2\2\2\34\u0081\3\2\2\2\36 \7\4"+
-		"\2\2\37!\5\4\3\2 \37\3\2\2\2!\"\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#$\3\2\2"+
-		"\2$%\5\6\4\2%&\7\5\2\2&\3\3\2\2\2\'(\t\2\2\2(-\7\21\2\2)*\7\33\2\2*,\7"+
-		"\21\2\2+)\3\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\60\3\2\2\2/-\3\2\2\2"+
-		"\60\61\7\25\2\2\61\5\3\2\2\2\62\64\5\b\5\2\63\62\3\2\2\2\64\65\3\2\2\2"+
-		"\65\63\3\2\2\2\65\66\3\2\2\2\66\7\3\2\2\2\67<\5\n\6\28<\5\f\7\29<\5\26"+
-		"\f\2:<\5\16\b\2;\67\3\2\2\2;8\3\2\2\2;9\3\2\2\2;:\3\2\2\2<\t\3\2\2\2="+
-		">\7\7\2\2>?\7\31\2\2?@\7\21\2\2@A\7\32\2\2AB\7\25\2\2B\13\3\2\2\2CD\7"+
-		"\b\2\2DE\7\31\2\2EF\t\3\2\2FG\7\32\2\2GH\7\25\2\2H\r\3\2\2\2IK\5\20\t"+
-		"\2JL\5\22\n\2KJ\3\2\2\2KL\3\2\2\2L\17\3\2\2\2MN\7\t\2\2NO\7\31\2\2OP\5"+
-		"\24\13\2PQ\7\32\2\2QS\7\27\2\2RT\5\b\5\2SR\3\2\2\2TU\3\2\2\2US\3\2\2\2"+
-		"UV\3\2\2\2VW\3\2\2\2WX\7\30\2\2X\21\3\2\2\2YZ\7\13\2\2Z\\\7\27\2\2[]\5"+
-		"\b\5\2\\[\3\2\2\2]^\3\2\2\2^\\\3\2\2\2^_\3\2\2\2_`\3\2\2\2`a\7\30\2\2"+
-		"a\23\3\2\2\2bc\5\30\r\2cd\7\16\2\2de\5\30\r\2e\25\3\2\2\2fg\7\21\2\2g"+
-		"h\7\26\2\2hi\5\30\r\2ij\7\25\2\2j\27\3\2\2\2kp\5\32\16\2lm\7\17\2\2mo"+
-		"\5\32\16\2nl\3\2\2\2or\3\2\2\2pn\3\2\2\2pq\3\2\2\2q\31\3\2\2\2rp\3\2\2"+
-		"\2sx\5\34\17\2tu\7\20\2\2uw\5\34\17\2vt\3\2\2\2wz\3\2\2\2xv\3\2\2\2xy"+
-		"\3\2\2\2y\33\3\2\2\2zx\3\2\2\2{\u0082\7\23\2\2|\u0082\7\21\2\2}~\7\31"+
-		"\2\2~\177\5\30\r\2\177\u0080\7\32\2\2\u0080\u0082\3\2\2\2\u0081{\3\2\2"+
-		"\2\u0081|\3\2\2\2\u0081}\3\2\2\2\u0082\35\3\2\2\2\f\"-\65;KU^px\u0081";
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\3\2"+
+		"\6\2%\n\2\r\2\16\2&\3\2\3\2\3\2\3\3\3\3\3\3\3\3\7\3\60\n\3\f\3\16\3\63"+
+		"\13\3\3\3\3\3\3\4\6\48\n\4\r\4\16\49\3\5\3\5\3\5\3\5\3\5\3\5\5\5B\n\5"+
+		"\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\5\bR\n\b\3\t"+
+		"\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\7\n_\n\n\f\n\16\nb\13\n\3\n\3"+
+		"\n\3\13\3\13\3\13\7\13i\n\13\f\13\16\13l\13\13\3\13\3\13\3\13\3\13\3\13"+
+		"\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\7\f{\n\f\f\f\16\f~\13\f\3\f\3\f\3\r"+
+		"\3\r\3\r\7\r\u0085\n\r\f\r\16\r\u0088\13\r\3\r\3\r\3\16\3\16\3\16\3\16"+
+		"\3\17\3\17\3\17\7\17\u0093\n\17\f\17\16\17\u0096\13\17\3\20\3\20\3\20"+
+		"\7\20\u009b\n\20\f\20\16\20\u009e\13\20\3\21\3\21\3\21\3\21\3\21\3\21"+
+		"\5\21\u00a6\n\21\3\21\2\2\22\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \2"+
+		"\4\3\2\f\r\4\2\23\23\26\26\2\u00a8\2\"\3\2\2\2\4+\3\2\2\2\6\67\3\2\2\2"+
+		"\bA\3\2\2\2\nC\3\2\2\2\fI\3\2\2\2\16O\3\2\2\2\20S\3\2\2\2\22X\3\2\2\2"+
+		"\24e\3\2\2\2\26t\3\2\2\2\30\u0081\3\2\2\2\32\u008b\3\2\2\2\34\u008f\3"+
+		"\2\2\2\36\u0097\3\2\2\2 \u00a5\3\2\2\2\"$\7\4\2\2#%\5\4\3\2$#\3\2\2\2"+
+		"%&\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\'(\3\2\2\2()\5\6\4\2)*\7\5\2\2*\3\3\2"+
+		"\2\2+,\t\2\2\2,\61\7\23\2\2-.\7\35\2\2.\60\7\23\2\2/-\3\2\2\2\60\63\3"+
+		"\2\2\2\61/\3\2\2\2\61\62\3\2\2\2\62\64\3\2\2\2\63\61\3\2\2\2\64\65\7\27"+
+		"\2\2\65\5\3\2\2\2\668\5\b\5\2\67\66\3\2\2\289\3\2\2\29\67\3\2\2\29:\3"+
+		"\2\2\2:\7\3\2\2\2;B\5\n\6\2<B\5\f\7\2=B\5\20\t\2>B\5\16\b\2?B\5\22\n\2"+
+		"@B\5\24\13\2A;\3\2\2\2A<\3\2\2\2A=\3\2\2\2A>\3\2\2\2A?\3\2\2\2A@\3\2\2"+
+		"\2B\t\3\2\2\2CD\7\7\2\2DE\7\33\2\2EF\7\23\2\2FG\7\34\2\2GH\7\27\2\2H\13"+
+		"\3\2\2\2IJ\7\b\2\2JK\7\33\2\2KL\t\3\2\2LM\7\34\2\2MN\7\27\2\2N\r\3\2\2"+
+		"\2OQ\5\26\f\2PR\5\30\r\2QP\3\2\2\2QR\3\2\2\2R\17\3\2\2\2ST\7\23\2\2TU"+
+		"\7\30\2\2UV\5\34\17\2VW\7\27\2\2W\21\3\2\2\2XY\7\16\2\2YZ\7\33\2\2Z[\5"+
+		"\32\16\2[\\\7\34\2\2\\`\7\31\2\2]_\5\6\4\2^]\3\2\2\2_b\3\2\2\2`^\3\2\2"+
+		"\2`a\3\2\2\2ac\3\2\2\2b`\3\2\2\2cd\7\32\2\2d\23\3\2\2\2ef\7\17\2\2fj\7"+
+		"\31\2\2gi\5\6\4\2hg\3\2\2\2il\3\2\2\2jh\3\2\2\2jk\3\2\2\2km\3\2\2\2lj"+
+		"\3\2\2\2mn\7\32\2\2no\7\16\2\2op\7\33\2\2pq\5\32\16\2qr\7\34\2\2rs\7\27"+
+		"\2\2s\25\3\2\2\2tu\7\t\2\2uv\7\33\2\2vw\5\32\16\2wx\7\34\2\2x|\7\31\2"+
+		"\2y{\5\6\4\2zy\3\2\2\2{~\3\2\2\2|z\3\2\2\2|}\3\2\2\2}\177\3\2\2\2~|\3"+
+		"\2\2\2\177\u0080\7\32\2\2\u0080\27\3\2\2\2\u0081\u0082\7\13\2\2\u0082"+
+		"\u0086\7\31\2\2\u0083\u0085\5\6\4\2\u0084\u0083\3\2\2\2\u0085\u0088\3"+
+		"\2\2\2\u0086\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0089\3\2\2\2\u0088"+
+		"\u0086\3\2\2\2\u0089\u008a\7\32\2\2\u008a\31\3\2\2\2\u008b\u008c\5\34"+
+		"\17\2\u008c\u008d\7\20\2\2\u008d\u008e\5\34\17\2\u008e\33\3\2\2\2\u008f"+
+		"\u0094\5\36\20\2\u0090\u0091\7\21\2\2\u0091\u0093\5\36\20\2\u0092\u0090"+
+		"\3\2\2\2\u0093\u0096\3\2\2\2\u0094\u0092\3\2\2\2\u0094\u0095\3\2\2\2\u0095"+
+		"\35\3\2\2\2\u0096\u0094\3\2\2\2\u0097\u009c\5 \21\2\u0098\u0099\7\22\2"+
+		"\2\u0099\u009b\5 \21\2\u009a\u0098\3\2\2\2\u009b\u009e\3\2\2\2\u009c\u009a"+
+		"\3\2\2\2\u009c\u009d\3\2\2\2\u009d\37\3\2\2\2\u009e\u009c\3\2\2\2\u009f"+
+		"\u00a6\7\25\2\2\u00a0\u00a6\7\23\2\2\u00a1\u00a2\7\33\2\2\u00a2\u00a3"+
+		"\5\34\17\2\u00a3\u00a4\7\34\2\2\u00a4\u00a6\3\2\2\2\u00a5\u009f\3\2\2"+
+		"\2\u00a5\u00a0\3\2\2\2\u00a5\u00a1\3\2\2\2\u00a6!\3\2\2\2\16&\619AQ`j"+
+		"|\u0086\u0094\u009c\u00a5";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
