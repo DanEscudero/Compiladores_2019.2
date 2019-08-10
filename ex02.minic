@@ -1,0 +1,18 @@
+programa
+	int x, y;
+	escreva("Digite dois numeros inteiros");
+	leia(x);
+	leia(y);
+	
+	se (x > y) {
+		escreva("O primeiro numero é maior.");
+	}
+
+	se (x < y) {
+		escreva("O segundo numero é maior.");
+	}
+
+	se (x == y) {
+		escreva("Os dois numeros sao iguais.");
+	}
+fimPrograma

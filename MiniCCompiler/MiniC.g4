@@ -1,6 +1,6 @@
 grammar MiniC;
 
-prog: T_INIT declare+ block T_END;
+prog: T_INIT (declare)* block T_END;
 
 declare: (T_INT | T_FLOAT) T_ID (T_COMMA T_ID)* T_FINAL;
 

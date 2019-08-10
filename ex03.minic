@@ -1,0 +1,9 @@
+programa
+	int x;
+	x = 1;
+	escreva("O programa le numeros do teclado ate que um numero negativo seja digitado");
+	enquanto (x > 0) {
+		leia(x);
+	}
+	escreva("O numero digitado foi menor que 0.");
+fimPrograma

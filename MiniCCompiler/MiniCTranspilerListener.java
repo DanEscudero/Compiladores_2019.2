@@ -28,7 +28,7 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 		outputLines.add("return 0;" + System.lineSeparator() + "}" + System.lineSeparator());
 
 		try {
-			FileWriter writer = new FileWriter("./output.c");
+			FileWriter writer = new FileWriter("../output.c");
 			for (String str : outputLines) {
 				writer.write(str);
 			}
