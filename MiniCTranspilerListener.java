@@ -19,7 +19,7 @@ public class MiniCTranspilerListener extends MiniCBaseListener {
 	@Override
 	public void enterProg(MiniCParser.ProgContext ctx) {
 		// Initialize program importing IO lib and declaring main
-		outputLines.add("#import <stdio.h>" + System.lineSeparator());
+		outputLines.add("#include <stdio.h>" + System.lineSeparator());
 		outputLines.add("int main () {" + System.lineSeparator());
 	}
 
