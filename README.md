@@ -38,8 +38,13 @@ A gramática está definida no arquivo `MiniC.g4`, na sintaxe do ANTLR4.
 Um programa deve começar com a palavra chave 'programa', e terminar com a palavra chave 'fimPrograma'.
 Depois da inicialização do prorama, deve ter a declaração de variáveis. As variáveis podem ser do tipo int ou float. A declaração deve ter o tipo da variável seguido do nome das variáveis separado por vírgula.
 Com as variáveis declaradas, o programa pode seguir para os comandos. Os comandos disponíveis são `escreva`, `leia`, designar valor a uma variável, estruturas condicionais (com as palavras chave `se` e `senao`), e estruturas de repetição (`enquanto` e `faca ___ enquanto`).
+
 A linguagem não tem suporte a comentários no código.
+
 Os programas de exemplo mostram a sintaxe da linguagem:
+
 ex01.minic - Ola mundo
+
 ex02.minic - Dado dois numeros do teclado, decide qual deles e maior
+
 ex03.minic - Le numeros do teclado ate que um numero negativo seja digitado
